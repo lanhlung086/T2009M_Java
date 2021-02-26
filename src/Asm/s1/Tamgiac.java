@@ -7,14 +7,12 @@ public class Tamgiac {
     double b;
     double c;
 
-    public  static boolean checkTriangle(double a, double b, double c){
-        if (a>0 && b>0 && c>0){
-            if(a+b>c && b+c>a && a+c>b){
-                if(a-b<c && a-c<b && b-c<a) return true;
-            }return false;
+    public boolean checkTriangle(double a, double b, double c){
+        if (a>0 && b>0 && c>0 && a+b>c && b+c>a && a+c>b){
+            return true;
         }return false;
     }
-    void tamgiac(double a, double b, double c){
+    public void tamgiac(double a, double b, double c){
         if (checkTriangle(a,b,c)){
             double p = a + b + c;
             double s = Math.sqrt((p/2)*(p/2-a)*(p/2-b)*(p/2-c));
