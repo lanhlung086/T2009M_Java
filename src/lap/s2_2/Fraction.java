@@ -9,7 +9,6 @@ public class Fraction {
     int MauSo;
 
     public Fraction() {
-
     }
 
     public int getTuSo() {
@@ -25,78 +24,88 @@ public class Fraction {
     }
 
     public void setMauSo(int mauSo) {
-        this.MauSo = mauSo;
+        if (mauSo!=0)
+            this.MauSo = mauSo;
+        else
+            this.MauSo = 1;
     }
 
 
     public void NhapPS(){
         Scanner sc = new Scanner(System.in);
         System.out.println("nhap tu so: ");
-        TuSo = sc.nextInt();
+//        TuSo = sc.nextInt();
+        setTuSo(sc.nextInt());
         System.out.println("nhap mau so: ");
         do{
-            MauSo = sc.nextInt();
-            if (MauSo==0) System.out.println("nhap lai mau so");
-        }while(MauSo==0);
+            setMauSo(sc.nextInt());
+            if (getMauSo()==0) System.out.println("nhap lai mau so");
+        }while(getMauSo()==0);
     }
 
     public void InPS(){
         System.out.println("Fraction: "+getTuSo()+"/"+getMauSo());
     }
 
-    public int UCLN(int x, int y){
-        while (x!=y){
-            if (x>y){
-                x-=y;
-            }else {
-                y-=x;
-            }
-        }
-        return x;
-    }
 
 
     public void RutGonPS(){
-        int i = UCLN(this.getTuSo(),this.getMauSo());
-        this.setTuSo(this.getTuSo()/i);
-        this.setMauSo(this.getMauSo()/i);
-        System.out.println("phan so toi gian la: "+getTuSo()+"/"+getMauSo());
+        int min = Math.min(this.getTuSo(),this.getMauSo());
+        int ucln = 0;
+        for (int i=1; i<=min; i++){
+            if (getTuSo()%i==0&&getMauSo()%i==0)
+                ucln = i;
+        }
+        setTuSo(getTuSo()/ucln);
+        setMauSo(getMauSo()/ucln);
     }
 
     public void NghichDaoPS(){
-        System.out.println("phan so nghich dao la: "+getMauSo()+"/"+getTuSo());
+        if (getTuSo()!=0){
+            int c = getTuSo();
+            setTuSo(getMauSo());
+            setMauSo(c);
+            return;
+        }
+        System.out.println("khong nghich dao duoc");
     }
 
-    public void CongPS(Fraction ps1,Fraction ps2){
-        int tuSo = ps1.getTuSo() * ps2.getMauSo() + ps1.getMauSo() * ps2.getTuSo();
-        int mauSo = ps1.getMauSo() * ps2.getMauSo();
+    public Fraction add(Fraction ps){
+        int tuSo = this.getTuSo() * ps.getMauSo() + this.getMauSo() * ps.getTuSo();
+        int mauSo = this.getMauSo() * ps.getMauSo();
         Fraction TongPS = new Fraction();
+        TongPS.setMauSo(mauSo);
+        TongPS.setTuSo(tuSo);
         TongPS.RutGonPS();
-        System.out.println("Tong phan so la: "+getTuSo()+"/"+getMauSo());
+        return TongPS;
     }
 
-    public void TruPS(Fraction ps1,Fraction ps2){
-        int tuSo = ps1.getTuSo() * ps2.getMauSo() - ps1.getMauSo() * ps2.getTuSo();
-        int mauSo = ps1.getMauSo() * ps2.getMauSo();
+    public Fraction sub(Fraction ps){
+        int tuSo = this.getTuSo() * ps.getMauSo() + this.getMauSo() * ps.getTuSo();
+        int mauSo = this.getMauSo() * ps.getMauSo();
         Fraction HieuPS = new Fraction();
+        HieuPS.setMauSo(mauSo);
+        HieuPS.setTuSo(tuSo);
         HieuPS.RutGonPS();
-        System.out.println("Hieu phan so la: "+getTuSo()+"/"+getMauSo());
+        return HieuPS;
     }
 
-    public void NhanPS(Fraction ps1, Fraction ps2){
-        int tuSo = ps1.getTuSo()*ps2.getTuSo();
-        int mauSo = ps1.getMauSo()* ps2.getMauSo();
+    public Fraction mul(Fraction ps){
+        int tuSo = this.getTuSo()*ps.getTuSo();
+        int mauSo = this.getMauSo()* ps.getMauSo();
         Fraction TichPS = new Fraction();
+        setMauSo(mauSo);
+        setTuSo(tuSo);
         TichPS.RutGonPS();
-        System.out.println("Tich hai phan so la: "+getTuSo()+"/"+getMauSo());
+        return TichPS;
     }
 
-    public void ChiaPS(Fraction ps1, Fraction ps2){
-        int tuSo = ps1.getTuSo() * ps2.getMauSo();
-        int mauSo = ps1.getMauSo() * ps2.getTuSo();
+    public Fraction div(Fraction ps){
+        int tuSo = this.getTuSo() * ps.getMauSo();
+        int mauSo = this.getMauSo() * ps.getTuSo();
         Fraction ThuongPS = new Fraction();
         ThuongPS.RutGonPS();
-        System.out.println("Thuong hai phan so la: "+getTuSo()+"/"+getMauSo());
+        return ThuongPS;
     }
 
 }
